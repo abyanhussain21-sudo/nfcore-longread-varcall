@@ -163,6 +163,6 @@ A complete list of tools used and their citations lives in [CITATIONS.md](CITATI
 **Author**
 
 [Abyan Hussain](https://github.com/abyanhussain21-sudo) — MSc Bioinformatics, University of Edinburgh.
-GitHub: [@abyanhussain21-sudo](https://github.com/abyanhussain21-sudo) · LinkedIn: <https://www.linkedin.com/in/abyanhussain> (replace this URL if your handle differs)
+GitHub: [@abyanhussain21-sudo](https://github.com/abyanhussain21-sudo) · LinkedIn: <https://www.linkedin.com/in/abyanhussain>
 
 Released under the [MIT License](LICENSE). © 2026 Abyan Hussain.
