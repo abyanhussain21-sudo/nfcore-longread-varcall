@@ -1,0 +1,24 @@
+PLACEHOLDER for the pipeline logo.
+
+Replace `assets/nf-core-style-logo.png.README` with a real PNG named
+`nf-core-style-logo.png` before publishing. Suggested specs (matching
+nf-core conventions):
+
+  - 1200 x 400 px, transparent background
+  - Pipeline name in a sans-serif weight 600
+  - One small accent shape (DNA double-helix, read fragment, etc.)
+  - Save at 72 dpi, optimise via `pngcrush`
+
+A simple way to produce one without design tools:
+
+  python -m pip install Pillow
+  python - <<'PY'
+  from PIL import Image, ImageDraw, ImageFont
+  img = Image.new("RGBA", (1200, 400), (0, 0, 0, 0))
+  d = ImageDraw.Draw(img)
+  d.text((40, 140), "nfcore-longread-varcall", fill=(20, 90, 200), font=ImageFont.load_default())
+  img.save("assets/nf-core-style-logo.png")
+  PY
+
+Until then the README's logo line will simply not render an image —
+that is acceptable for v0.1.0.

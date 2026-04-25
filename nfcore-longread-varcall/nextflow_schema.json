@@ -1,0 +1,173 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/abyanhussain21-sudo/nfcore-longread-varcall/master/nextflow_schema.json",
+    "title": "nfcore-longread-varcall pipeline parameters",
+    "description": "Haplotype-aware variant calling from PacBio HiFi long reads on non-model mammalian genomes.",
+    "type": "object",
+    "$defs": {
+        "input_output_options": {
+            "title": "Input / output options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should read inputs from and where outputs are written.",
+            "required": ["input", "outdir"],
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/samplesheet_schema.json",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "description": "Path to comma-separated samplesheet with sample_id, fastq, reference columns.",
+                    "help_text": "See `docs/usage.md` for the exact samplesheet specification.",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "Directory where pipeline results will be written.",
+                    "default": "./results",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "publish_dir_mode": {
+                    "type": "string",
+                    "default": "copy",
+                    "description": "How results files should be published.",
+                    "enum": ["symlink", "rellink", "link", "copy", "copyNoFollow", "move"],
+                    "hidden": true,
+                    "fa_icon": "fas fa-copy"
+                },
+                "reference": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "Optional global reference FASTA. Per-sample references in the samplesheet take precedence.",
+                    "fa_icon": "fas fa-dna"
+                }
+            }
+        },
+        "stage_toggles": {
+            "title": "Stage toggles",
+            "type": "object",
+            "fa_icon": "fas fa-toggle-on",
+            "description": "Skip individual pipeline stages.",
+            "properties": {
+                "skip_snv": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip small-variant calling with DeepVariant."
+                },
+                "skip_sv": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip structural-variant calling with Sniffles2."
+                },
+                "skip_qc": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip FastQC and NanoPlot read QC."
+                },
+                "skip_multiqc": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip the final MultiQC report."
+                }
+            }
+        },
+        "variant_filtering": {
+            "title": "Variant filtering",
+            "type": "object",
+            "fa_icon": "fas fa-filter",
+            "description": "Quality thresholds applied by bcftools filter.",
+            "properties": {
+                "min_qual": {
+                    "type": "integer",
+                    "default": 20,
+                    "minimum": 0,
+                    "description": "Minimum QUAL score retained."
+                },
+                "min_dp": {
+                    "type": "integer",
+                    "default": 10,
+                    "minimum": 0,
+                    "description": "Minimum read depth retained."
+                }
+            }
+        },
+        "deepvariant_options": {
+            "title": "DeepVariant options",
+            "type": "object",
+            "fa_icon": "fas fa-microscope",
+            "properties": {
+                "deepvariant_model_type": {
+                    "type": "string",
+                    "default": "PACBIO",
+                    "enum": ["PACBIO", "WGS", "WES", "ONT_R104", "HYBRID_PACBIO_ILLUMINA"],
+                    "description": "DeepVariant model. Default PACBIO for HiFi reads."
+                }
+            }
+        },
+        "max_job_request_options": {
+            "title": "Max job request options",
+            "type": "object",
+            "fa_icon": "fab fa-acquisitions-incorporated",
+            "description": "Set the top limit for requested resources for any single job.",
+            "properties": {
+                "max_cpus": {
+                    "type": "integer",
+                    "description": "Maximum CPUs that can be requested for any single job.",
+                    "default": 16,
+                    "fa_icon": "fas fa-microchip",
+                    "hidden": true
+                },
+                "max_memory": {
+                    "type": "string",
+                    "description": "Maximum memory that can be requested for any single job.",
+                    "default": "64.GB",
+                    "fa_icon": "fas fa-memory",
+                    "pattern": "^\\d+(\\.\\d+)?\\.?\\s*(K|M|G|T)?B$",
+                    "hidden": true
+                },
+                "max_time": {
+                    "type": "string",
+                    "description": "Maximum time that can be requested for any single job.",
+                    "default": "24.h",
+                    "fa_icon": "far fa-clock",
+                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
+                    "hidden": true
+                }
+            }
+        },
+        "generic_options": {
+            "title": "Generic options",
+            "type": "object",
+            "fa_icon": "fas fa-file-import",
+            "description": "Less common options for the pipeline, typically set in a config file.",
+            "properties": {
+                "multiqc_config": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "Custom MultiQC YAML config file to supplement the pipeline's default.",
+                    "hidden": true
+                },
+                "multiqc_title": {
+                    "type": "string",
+                    "description": "Custom title for the MultiQC report."
+                },
+                "help": { "type": "boolean", "hidden": true, "default": false },
+                "version": { "type": "boolean", "hidden": true, "default": false },
+                "validate_params": { "type": "boolean", "default": true, "hidden": true },
+                "show_hidden_params": { "type": "boolean", "default": false, "hidden": true },
+                "monochrome_logs": { "type": "boolean", "default": false, "hidden": true }
+            }
+        }
+    },
+    "allOf": [
+        { "$ref": "#/$defs/input_output_options" },
+        { "$ref": "#/$defs/stage_toggles" },
+        { "$ref": "#/$defs/variant_filtering" },
+        { "$ref": "#/$defs/deepvariant_options" },
+        { "$ref": "#/$defs/max_job_request_options" },
+        { "$ref": "#/$defs/generic_options" }
+    ]
+}

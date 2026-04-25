@@ -1,0 +1,2 @@
+sample_id,fastq,reference
+TEST01,tests/test_data/hifi.fastq.gz,tests/test_data/ref.fa

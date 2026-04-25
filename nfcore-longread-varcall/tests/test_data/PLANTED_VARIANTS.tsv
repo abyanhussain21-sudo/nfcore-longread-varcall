@@ -1,0 +1,8 @@
+#CHROM	POS	REF	ALT	TYPE	NOTE
+chr1	10001	T	A	SNV	homozygous
+chr1	25001	A	C	SNV	homozygous
+chr1	40001	C	T	SNV	homozygous
+chr1	55001	G	A	SNV	homozygous
+chr1	70001	T	G	SNV	homozygous
+chr1	80001	.	<DEL>	SV	length=500; ~70% of spanning reads carry it
+chr1	90001	.	<INS>	SV	length=50; ~70% of spanning reads carry it; seq=CGTAAAAAAGTGCCGCATGAAATAGTACCTACAAGTCAGGGCTGGGACTG
