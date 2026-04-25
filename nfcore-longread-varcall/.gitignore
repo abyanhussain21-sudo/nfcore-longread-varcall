@@ -1,0 +1,36 @@
+# ---- Nextflow runtime --------------------------------------------------
+.nextflow*
+work/
+results*/
+.tower.yml.bak
+report*.html
+timeline*.html
+trace*.txt
+dag*.html
+pipeline_info/
+*.log
+
+# ---- Python ------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ---- Editors / OS ------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+**/.DS_Store
+Thumbs.db
+*.swp
+
+# ---- Conda / containers ------------------------------------------------
+conda-envs/
+*.sif
+.singularity/
+
+# ---- Test outputs that shouldn't be committed --------------------------
+results-test/
+results-test-full/
+.nf-test/
